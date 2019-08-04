@@ -1,3 +1,5 @@
+from selenium.webdriver.chrome.webdriver import WebDriver
+
 from crawl.http.downloader import DownLoader
 from crawl.drivers_manager import DriversManager
 
@@ -5,14 +7,14 @@ from crawl.drivers_manager import DriversManager
 class Cat:
 
     @classmethod
-    def with_simple(cls, site_name):
+    def with_simple(cls, site_name: str) -> str:
         return DownLoader(site_name).get()
 
-
     @classmethod
-    def with_selenium(cls, site_name):
-        manager = DriversManager()
+    def with_selenium(cls, site_name: str) -> str:
+        manager: DriversManager = DriversManager()
 
-        driver = manager.create()
-        result = DownLoader(site_name, selenium=True, driver=driver).get()
+        driver: WebDriver = manager.create()
+        result: str = DownLoader(site_name, selenium=True, driver=driver).get()
+
         return result
