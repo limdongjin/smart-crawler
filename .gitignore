@@ -1,3 +1,6 @@
+# Log files
+geckodriver.log
+
 # ide configuration files
 .idea/
 

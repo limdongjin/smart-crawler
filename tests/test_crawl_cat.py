@@ -1,6 +1,8 @@
 import unittest
-from crawl.cat import DownLoader
+from crawl.commands.cat import DownLoader
+
 import requests
+
 
 class TestCrawlCat(unittest.TestCase):
     def test_unvalid_site_cat(self):
@@ -11,5 +13,3 @@ class TestCrawlCat(unittest.TestCase):
             DownLoader("https://goo1gle.co2m").get()
 
         self.assertEqual(1, 1)
-
-        print(DownLoader("https://tojung.me", selenium=True).get())
