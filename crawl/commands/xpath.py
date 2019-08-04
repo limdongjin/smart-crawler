@@ -11,6 +11,6 @@ class Xpath:
         driver = manager.create()
 
         driver.get(url)
-        # driver.implicitly_wait(5)
+        driver.implicitly_wait(5)
 
-        return driver.find_element_by_xpath(xpath=xpath).text
+        return driver.find_element_by_xpath(xpath=xpath).get_attribute('outerHTML')
