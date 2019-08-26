@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from config_handler.reader import ConfigReader
 
 
-# [TODO] driver remove operation
+# [TODO] implement driver remove,del operation
 class DriversManager:
     drivers: List[WebDriver]
     count: int
