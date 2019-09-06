@@ -1,6 +1,6 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
 from crawl.drivers_manager import DriversManager
-from crawl.util.web_element import parse_table
+from crawl.parse.table import parse_table
 
 
 class Table:
