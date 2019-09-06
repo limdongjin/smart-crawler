@@ -1,9 +1,8 @@
-from typing import Dict, List, Any, Callable
+
+from typing import Dict, List, Callable
 from selenium.webdriver.remote.webelement import WebElement
 
-
-def to_texts(_: List[WebElement]) -> List[str]:
-    return list(map(lambda _: _.text, _))
+from crawl.util.common import to_texts
 
 
 def _parse_ths(table: WebElement) -> List[str]:
