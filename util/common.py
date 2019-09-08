@@ -1,4 +1,9 @@
 from typing import List
+from functools import reduce
+
+
+def flatten(its):
+    return reduce(lambda it, _next: it + _next, its)
 
 
 def to_texts(_) -> List[str]:
