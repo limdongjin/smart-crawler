@@ -6,7 +6,7 @@
 python setup.py install
 ```
 
-and install **selenium**, **chrome**
+and install [**selenium**](https://sites.google.com/a/chromium.org/chromedriver/home), **chrome**
 
 ## Getting Start
 
