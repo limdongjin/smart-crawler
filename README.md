@@ -6,6 +6,8 @@
 python setup.py install
 ```
 
+and install **selenium**, **chrome**
+
 ## Getting Start
 
 ```bash
