@@ -3,7 +3,7 @@ from multiprocessing import Pool
 from unittest import TestCase
 
 from crawl.drivers_manager import DriversManager
-from sitess.likms_assembly import crawlling_moorings
+from crawling_sites.likms_assembly import crawlling_moorings
 
 
 class TestLikmsAssembly(TestCase):
@@ -31,3 +31,6 @@ class TestLikmsAssembly(TestCase):
         print('delete')
         driver_manager.destroy_myself()
         pool.close()
+        pool.join()
+
+        print('end')
