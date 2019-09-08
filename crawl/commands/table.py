@@ -1,13 +1,15 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
 from crawl.drivers_manager import DriversManager
-from crawl.parse.table import parse_table
+from crawl.parse.table import parse_tables
+from typing import List
 
 
 class Table:
 
     @classmethod
-    def get(cls, url):
+    def get(cls, url) -> List[dict]:
         driver: WebDriver = DriversManager().create()
         driver.get(url)
-        res = parse_table(driver.page_source)
+        res: List[dict] = parse_tables(driver.page_source)
+        driver.close()
         return res
