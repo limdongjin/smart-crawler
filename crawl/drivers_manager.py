@@ -17,7 +17,7 @@ class DriversManager(metaclass=Singleton):
 
     def __del__(self):
         for driver in self.drivers:
-            driver.close()
+            driver.quit()
 
     def create(self) -> WebDriver:
         driver_conf: Dict[str, Union[str, bool, Options]] = self.__configure()
