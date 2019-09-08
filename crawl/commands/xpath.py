@@ -1,6 +1,7 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
 
 from crawl.drivers_manager import DriversManager
+from crawl.parse.xpath import parse_by_xpath
 
 
 class Xpath:
@@ -13,6 +14,5 @@ class Xpath:
         driver: WebDriver = manager.create()
 
         driver.get(url)
-        driver.implicitly_wait(5)
 
-        return driver.find_element_by_xpath(xpath=xpath).get_attribute('outerHTML')
+        return parse_by_xpath(driver.page_source, xpath)

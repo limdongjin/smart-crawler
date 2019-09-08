@@ -11,7 +11,7 @@ from crawl.commands.xpath import Xpath
 class TestXpath(unittest.TestCase):
     def test_get(self):
         url = "https://stackoverflow.com/questions/38727520/adding-default-parameter-value-with-type-hint-in-python"
-        xpath = """//*[@id="answer-38727786"]/div/div[2]/div[1]/p[1]"""
+        xpath = """//*[@id="answer-38727786"]/div/div[2]/div[1]/p[1]/text()"""
         print(Xpath().get(url=url,
                           xpath=xpath))
         # self.fail()
@@ -21,6 +21,3 @@ class TestXpath(unittest.TestCase):
 
         print(Xpath().get(url=url2,
                           xpath=xpath2))
-
-    def test_find_table(self):
-        pass
