@@ -28,5 +28,6 @@ class TestLikmsAssembly(TestCase):
         print("--- %s seconds ---" % (time.time() - start_time))
         print(res)
 
-        del driver_manager
+        print('delete')
+        driver_manager.destroy_myself()
         pool.close()
