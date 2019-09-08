@@ -1,12 +1,13 @@
 from typing import List, Dict, Union, Optional
+
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options
 from config_handler.reader import ConfigReader
+from util.common import Singleton
 
 
-# [TODO] implement driver remove,del operation
-class DriversManager:
+class DriversManager(metaclass=Singleton):
     drivers: List[WebDriver]
     count: int
 
@@ -15,18 +16,14 @@ class DriversManager:
         self.count = 0
 
     def __del__(self):
-        pass
-        # for driver in self.drivers:
-        #     try:
-        #         driver.close()
-        #     except ValueError as e:
-        #         print(e)
+        for driver in self.drivers:
+            driver.close()
 
     def create(self) -> WebDriver:
         driver_conf: Dict[str, Union[str, bool, Options]] = self.__configure()
 
         driver: webdriver.Chrome = webdriver.Chrome(driver_conf['chrome_driver_binary'],
-                                                    chrome_options=driver_conf['options'])
+                                                    options=driver_conf['options'])
 
         self.drivers.append(driver)
         self.count += 1
