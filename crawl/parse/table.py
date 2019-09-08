@@ -1,7 +1,7 @@
 
 from bs4 import BeautifulSoup
 from bs4.element import Tag
-from crawl.util.common import to_texts
+from util.common import to_texts, is_not_none, to_strips, merge_list_dict, is_not_equal_empty_list
 from typing import Callable, List, Dict, Any
 
 
@@ -18,6 +18,20 @@ def _parse_table(table_element: Tag) -> dict:
     :param table_element: Tag
     :return: {'tag_name': 'table', 'attrs': {}, 'rows': [{.., 'links': []},{..},]}
 
+    return example 1)
+    {
+        'tag_name': 'table',
+        'attrs': {'summary': 'my table'},
+        'rows': [
+            {
+                'th1': 'dat',
+                'links': [{'href': 'http://google.com'}]
+            },
+            {},..
+        ]
+    }
+    """
+    assert type(table_element) == Tag
 
     find_x_all: Callable[[str], Callable[[Tag], List[Tag]]] = lambda x: lambda from_: from_.find_all(x)
     read_ths_from = find_x_all('th')
@@ -37,7 +51,6 @@ def _parse_table(table_element: Tag) -> dict:
     )
 
     read_links = lambda table: list(map(find_a_from_row, read_rows(table)))
-    to_strips = lambda its: map(lambda it: it.strip(), filter(lambda _: type(_) is str, its))
 
     _parse_table_rows_data: Callable[[Tag], List[Dict[str, str]]] = (
         lambda table: (
@@ -51,4 +64,6 @@ def _parse_table(table_element: Tag) -> dict:
     links: List[Dict[str, List[Any]]] = list(map(lambda _: {'links': list(_)}, read_links(table_element)))
     parsed_table_rows_data = merge_list_dict(parsed_table_rows_data, links)
 
-    return parsed_table
+    res = {'tag_name': 'table', 'attrs': table_element.attrs, 'rows': parsed_table_rows_data}
+
+    return res
