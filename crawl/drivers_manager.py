@@ -1,43 +1,48 @@
-from typing import List, Dict, Union, Optional
+from typing import List
 
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import WebDriverException
 from config_handler.reader import ConfigReader
 from util.common import Singleton
+from selenium.webdriver.chrome.service import Service
 
 
 class DriversManager(metaclass=Singleton):
     drivers: List[WebDriver]
-    count: int
+    chrome_options: Options
+    service: Service
 
     def __init__(self):
         self.drivers = []
-        self.count = 0
+        self.chrome_options = webdriver.ChromeOptions()
+        conf: dict = ConfigReader.get("selenium")
+
+        if conf['headless']:
+            self.chrome_options.add_argument('--headless')
+            self.chrome_options.add_argument('--no-sandbox')
+            self.chrome_options.add_argument('--disable-dev-shm-usage')
+
+        self.service = Service(executable_path=conf['chrome_driver_binary'])
 
     def destroy_myself(self):
         for driver in self.drivers:
             print('del {0}'.format(driver))
             driver.quit()
+        self.drivers = []
 
     def create(self) -> WebDriver:
-        driver_conf: Dict[str, Union[str, bool, Options]] = self.__configure()
-
-        driver: webdriver.Chrome = webdriver.Chrome(driver_conf['chrome_driver_binary'],
-                                                    options=driver_conf['options'])
+        try:
+            driver = webdriver.Chrome(service=self.service, options=self.chrome_options)
+        except WebDriverException as e:
+            print(e)
+            print("Check your chromedriver path or re install.")
+            assert False
 
         self.drivers.append(driver)
-        self.count += 1
 
         return driver
 
-    @staticmethod
-    def __configure() -> Dict[str, Union[str, bool, Options]]:
-        conf: Optional[Dict[str, Union[str, bool]]] = ConfigReader.get("selenium")
-
-        options: Options = webdriver.ChromeOptions()
-        options.binary_location = conf['binary_location']
-        options.headless = conf['headless']
-        chrome_driver_binary = conf['chrome_driver_binary']
-
-        return {'chrome_driver_binary': chrome_driver_binary, 'options': options}
+    def count(self):
+        return len(self.drivers)
