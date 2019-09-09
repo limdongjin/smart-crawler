@@ -1,10 +1,4 @@
 import unittest
-from typing import Dict, List, Any, Callable
-
-from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
-from crawl.drivers_manager import DriversManager
-
 from crawl.commands.xpath import Xpath
 
 

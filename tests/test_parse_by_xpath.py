@@ -4,7 +4,7 @@ from tests.fake_data.html.lxml_de import source as lxml_source
 from tests.fake_data.html.python_org import source as python_org_source
 
 
-class TestParse_by_xpath(TestCase):
+class TestParseByXpath(TestCase):
     def test_parse_by_xpath(self):
         answer = ['lxml - XML and HTML with Python']
         xpath = '//*[@id="lxml"]/h1/text()'

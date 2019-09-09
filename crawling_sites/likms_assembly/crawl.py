@@ -1,12 +1,12 @@
 
+import re
+import time
 from selenium.common.exceptions import JavascriptException
 from bs4 import BeautifulSoup
 from crawl.parse.table import parse_tables
 from crawl.drivers_manager import DriversManager
 from util.common import merge_dict, to_strips
 from crawl.parse.xpath import parse_by_xpath
-import re
-import time
 
 
 def crawling_moorings(page=1):
@@ -94,18 +94,18 @@ def _crawl_proponents(driver, detail_url: str):
     soup = BeautifulSoup(page_source, features='html.parser')
 
     soup = soup.find('div', class_='links textType02 mt20')
-    a_tags = soup.find_all('a')
+    a_tags = soup.find_all('a_tag')
 
     proponents = []
-    for a in a_tags:
+    for a_tag in a_tags:
         proponent = dict()
 
-        proponent['url'] = a.attrs['href']
+        proponent['url'] = a_tag.attrs['href']
 
-        # ex) a.text = '이장우(새누리당/李莊雨)'
+        # ex) a_tag.text = '이장우(새누리당/李莊雨)'
         (proponent['한글이름'],
          proponent['정당'],
-         proponent['한자이름']) = tuple(re.split('[(:/:)]', a.text)[:-1])
+         proponent['한자이름']) = tuple(re.split('[(:/:)]', a_tag.text)[:-1])
         proponent['유형'] = '공동발의자'
 
         proponents.append(proponent)
@@ -130,6 +130,6 @@ def _crawl_proponents(driver, detail_url: str):
 
 
 def _get_prc_xxx(mooring):
-    if type(mooring) is str:
+    if isinstance(mooring) is str:
         return mooring.split('billId=')[1]
     return mooring['links'][0]['href'].split("'")[1]
