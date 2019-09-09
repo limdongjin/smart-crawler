@@ -9,7 +9,7 @@ import re
 import time
 
 
-def crawlling_moorings(page=1):
+def crawling_moorings(page=1):
     driver = DriversManager().drivers[page % 8]
 
     moorings_base_url: str = "http://likms.assembly.go.kr/bill/MooringBill.do"

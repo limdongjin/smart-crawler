@@ -1,4 +1,4 @@
-# smart-crawller
+# smart-crawler
 
 ## Introduction
 

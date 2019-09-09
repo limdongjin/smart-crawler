@@ -10,7 +10,7 @@ def main():
 
 @click.command()
 def welcome():
-    click.echo('Hello ! Welcome Smart-Crawller')
+    click.echo('Hello ! Welcome Smart-Crawler')
 
 
 @click.command()
@@ -30,7 +30,7 @@ def xpath(url, xpath_):
     click.echo(Xpath.get(url=url, xpath=xpath_))
 
     # example1.
-    # smart-crawller xpath https://stackoverflow.com/questions/38727520/adding-default-parameter-value-with-type-hint-in-python //*[@id=\"answer-38727786\"]/div/div[2]/div[1]/p[1]
+    # smart-crawler xpath https://stackoverflow.com/questions/38727520/adding-default-parameter-value-with-type-hint-in-python //*[@id=\"answer-38727786\"]/div/div[2]/div[1]/p[1]
 
 
 main.add_command(welcome)

@@ -9,18 +9,18 @@ def long_description():
 
 
 setup(
-    name='smart-crawller',
+    name='smart-crawler',
     version='0.2',
-    url='https://github.com/limdongjin/smart-crawller',
+    url='https://github.com/limdongjin/smart-crawler',
     license='MIT',
     author='limdongjin',
     author_email='geniuslim27@gmail.com',
-    description='Smart Crawller',
+    description='Smart Crawler',
     packages=find_packages(),
     long_description=long_description(),
     zip_safe=False,
     install_requires=['Click', 'beautifulsoup4', 'requests', 'selenium', 'lxml'],
     entry_points={
-        'console_scripts': ['smart-crawller = cli.main:main']
+        'console_scripts': ['smart-crawler = cli.main:main']
     }
 )
