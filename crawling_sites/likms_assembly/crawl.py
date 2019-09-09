@@ -1,16 +1,15 @@
 
+from selenium.common.exceptions import JavascriptException
+from bs4 import BeautifulSoup
 from crawl.parse.table import parse_tables
 from crawl.drivers_manager import DriversManager
 from util.common import merge_dict, to_strips
 from crawl.parse.xpath import parse_by_xpath
-from selenium.common.exceptions import JavascriptException
-from bs4 import BeautifulSoup
 import re
 import time
 
 
 def crawlling_moorings(page=1):
-
     driver = DriversManager().drivers[page % 8]
 
     moorings_base_url: str = "http://likms.assembly.go.kr/bill/MooringBill.do"
@@ -92,7 +91,7 @@ def _crawl_proponents(driver, detail_url: str):
     driver.get(url)
 
     page_source = driver.page_source
-    soup = BeautifulSoup(page_source)
+    soup = BeautifulSoup(page_source, features='html.parser')
 
     soup = soup.find('div', class_='links textType02 mt20')
     a_tags = soup.find_all('a')
