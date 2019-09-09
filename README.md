@@ -27,9 +27,6 @@ $ python setup.py install
 
 # Configuration Selenium
 config_selenium = {
-    'binary_location': 'your-chrome-browser-binary', 
-    # ex) /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
-    
     'headless': False, 
     # or True
     
