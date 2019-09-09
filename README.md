@@ -32,10 +32,10 @@ mac, windows, linux(gui)
 linux(cli)
  ```bash
 # chrome install
-$ ./install_chrome_linux64.sh
+$ ./sh/install_chrome_linux64.sh
 
 # chromedriver install
-$ ./install_chromedriver_linux64.sh
+$ ./sh/install_chromedriver_linux64.sh
 ```
 ### **step2. install dependencies**
 ```bash
