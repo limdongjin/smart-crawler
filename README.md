@@ -13,30 +13,52 @@
 
 ## Install and Configuration
 
-1. install selenium, chrome. 
+### **step1. install selenium, chrome.** 
  - [**selenium(chrome-driver)**](https://sites.google.com/a/chromium.org/chromedriver/home)
  - [**chrome**](https://www.google.com/intl/ko/chrome/)
+
+<br>
+
+mac, windows, linux(gui)
+ - go to above link and download **chrome**, **chromedriver** file
+ - be careful: chrome version, chromedriver version
+    - If you are using Chrome version 77, please download ChromeDriver 77.0.3865.40
+    - If you are using Chrome version 76, please download ChromeDriver 76.0.3809.126
+    - If you are using Chrome version 75, please download ChromeDriver 75.0.3770.140  
+ - if chromedriver download success, unzip chromedriver and store. 
  
-2. install dependencies
+ <br>
+ 
+linux(cli)
+ ```bash
+# chrome install
+$ ./install_chrome_linux64.sh
+
+# chromedriver install
+$ ./install_chromedriver_linux64.sh
+```
+### **step2. install dependencies**
 ```bash
 $ python setup.py install
 ```
 
-3. configure **config/selenium.py**. 
+### **step3. configure `config/selenium.py`.** 
 ```python
 
 # Configuration Selenium
 config_selenium = {
     'headless': False, 
     # or True
+    # if your computer is Non-GUI OS 
+    # must change 'headless' option True. 
     
-    'chrome_driver_binary': 'your-selenium-chrome-driver-binary'
+    'chrome_driver_binary': 'your-selenium-chrome-driver-binary-path'
     # ex) /Users/imdongjin/Downloads/chromedriver
 }
 ```
 
-4. re-build to apply changes
+### **step4. re-build to apply changes**
 
-```python
+```bash
 $ python setup.py install
 ```
