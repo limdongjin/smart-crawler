@@ -6,13 +6,11 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException
 from config_handler.reader import ConfigReader
 from util.common import Singleton
-from selenium.webdriver.chrome.service import Service
 
 
 class DriversManager(metaclass=Singleton):
     drivers: List[WebDriver]
     chrome_options: Options
-    service: Service
 
     def __init__(self):
         self.drivers = []
@@ -23,8 +21,7 @@ class DriversManager(metaclass=Singleton):
             self.chrome_options.add_argument('--headless')
             self.chrome_options.add_argument('--no-sandbox')
             self.chrome_options.add_argument('--disable-dev-shm-usage')
-
-        self.service = Service(executable_path=conf['chrome_driver_binary'])
+        self.executable_path = conf['chrome_driver_binary']
 
     def destroy_myself(self):
         for driver in self.drivers:
@@ -34,7 +31,8 @@ class DriversManager(metaclass=Singleton):
 
     def create(self) -> WebDriver:
         try:
-            driver = webdriver.Chrome(service=self.service, options=self.chrome_options)
+            driver = webdriver.Chrome(executable_path=self.executable_path,
+                                      options=self.chrome_options)
         except WebDriverException as e:
             print(e)
             print("Check your chromedriver path or re install.")
