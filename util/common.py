@@ -40,12 +40,3 @@ def merge_list_dict(l1: List[dict], l2: List[dict]) -> List[dict]:
 
 def is_all_elements_type(its, target_type):
     return all(isinstance(it, target_type) for it in its)
-
-
-class Singleton(type):
-    _instances = {}
-
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
