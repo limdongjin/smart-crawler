@@ -25,18 +25,18 @@ class DriversManager(metaclass=Singleton):
             driver.quit()
         self.drivers = []
 
-    def create(self) -> WebDriver:
+    def create(self, driver_num=1) -> WebDriver:
+        driver = None
         try:
-            driver = webdriver.Chrome(executable_path=self.executable_path,
-                                      options=self.chrome_options)
+            for i in range(0, driver_num):
+                driver = webdriver.Chrome(executable_path=self.executable_path,
+                                          options=self.chrome_options)
+                self.drivers.append(driver)
+            return driver
         except WebDriverException as e:
             print(e)
             print("Check your chromedriver path or re install.")
             assert False
-
-        self.drivers.append(driver)
-
-        return driver
 
     def count(self):
         return len(self.drivers)
