@@ -94,8 +94,8 @@ def _crawl_proponents(driver, detail_url: str):
     soup = BeautifulSoup(page_source, features='html.parser')
 
     soup = soup.find('div', class_='links textType02 mt20')
-    a_tags = soup.find_all('a_tag')
-
+    a_tags = soup.find_all('a')
+    # print(a_tags)
     proponents = []
     for a_tag in a_tags:
         proponent = dict()
@@ -130,6 +130,6 @@ def _crawl_proponents(driver, detail_url: str):
 
 
 def _get_prc_xxx(mooring):
-    if isinstance(mooring) is str:
+    if isinstance(mooring, str):
         return mooring.split('billId=')[1]
     return mooring['links'][0]['href'].split("'")[1]
