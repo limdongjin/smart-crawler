@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException
 from config_handler.reader import ConfigReader
-from util.common import Singleton
+from util.singleton import Singleton
 
 
 class DriversManager(metaclass=Singleton):
