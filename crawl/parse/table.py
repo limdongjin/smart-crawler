@@ -1,8 +1,12 @@
-
 from bs4 import BeautifulSoup
 from bs4.element import Tag
 from util.common import to_texts, is_not_none, to_strips, merge_list_dict, is_not_equal_empty_list
 from typing import Callable, List, Dict, Any
+from functional import seq
+
+
+# [TODO] tag wrapper class 만들기 및 크롤링 되는 대상에 대한 wrapper
+# [TODO] 기능 좀더 추상화
 
 
 def parse_tables(source: str):
@@ -33,37 +37,29 @@ def _parse_table(table_element: Tag) -> dict:
     """
     assert type(table_element) == Tag
 
-    find_x_all: Callable[[str], Callable[[Tag], List[Tag]]] = lambda x: lambda from_: from_.find_all(x)
-    read_ths_from = find_x_all('th')
-    read_trs_from = find_x_all('tr')
-    read_tds_from = find_x_all('td')
+    read_rows = (lambda table: seq(table.find_all('tr'))
+                 .map(lambda tr: tr.find_all('td'))
+                 .filter(is_not_equal_empty_list))
 
-    read_rows: Callable[[Tag], List[List[Tag]]] = (
-        lambda table: list(filter(is_not_equal_empty_list, map(
-            lambda tr: read_tds_from(tr), read_trs_from(table)
-        ))))
+    find_a_from_row = (lambda row: seq(row)
+                       .map(lambda td: td.a)
+                       .filter(is_not_none)
+                       .map(lambda a: a.attrs))
 
-    find_a_from_row: Callable[[Tag], List[Dict[str, str]]] = (
-        lambda row: list(map(
-            lambda a: a.attrs,
-            filter(is_not_none, map(lambda td: td.a, row))
-        ))
-    )
+    read_links = (lambda table: seq(read_rows(table))
+                  .map(find_a_from_row))
 
-    read_links = lambda table: list(map(find_a_from_row, read_rows(table)))
+    ths_text = lambda table: seq(table.find_all('th')).map(lambda _: _.text.strip())
 
-    _parse_table_rows_data: Callable[[Tag], List[Dict[str, str]]] = (
-        lambda table: (
-            list(map(lambda row:
-                     dict(zip(
-                         to_strips(to_texts(read_ths_from(table))), to_strips(to_texts(row))
-                     )), read_rows(table))
-                 )))
-
+    _parse_table_rows_data = (lambda table: seq(read_rows(table))
+                      .map(to_texts)
+                      .map(to_strips)
+                      .map(lambda row: dict(zip(ths_text(table), row))))
     parsed_table_rows_data = _parse_table_rows_data(table_element)
-    links: List[Dict[str, List[Any]]] = list(map(lambda _: {'links': list(_)}, read_links(table_element)))
+    links: List[Dict[str, List[Any]]] = (seq(read_links(table_element))
+                                         .map(lambda _: {'links': list(_)}))
     parsed_table_rows_data = merge_list_dict(parsed_table_rows_data, links)
 
     res = {'tag_name': 'table', 'attrs': table_element.attrs, 'rows': parsed_table_rows_data}
-
+    print(res)
     return res
