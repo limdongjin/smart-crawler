@@ -19,11 +19,10 @@ class DriversManager(metaclass=Singleton):
 
         self._configure_options()
 
-    def destroy_myself(self):
+    def __del__(self):
         for driver in self.drivers:
             print('del {0}'.format(driver))
             driver.quit()
-        self.drivers = []
 
     def create(self, driver_num=1) -> WebDriver:
         driver = None
