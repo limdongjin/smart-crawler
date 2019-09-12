@@ -17,11 +17,7 @@ class DriversManager(metaclass=Singleton):
         self.chrome_options = webdriver.ChromeOptions()
         conf: dict = ConfigReader.get("selenium")
 
-        if conf['headless']:
-            self.chrome_options.add_argument('--headless')
-            self.chrome_options.add_argument('--no-sandbox')
-            self.chrome_options.add_argument('--disable-dev-shm-usage')
-        self.executable_path = conf['chrome_driver_binary']
+        self._configure_options()
 
     def destroy_myself(self):
         for driver in self.drivers:
@@ -44,3 +40,12 @@ class DriversManager(metaclass=Singleton):
 
     def count(self):
         return len(self.drivers)
+
+    def _configure_options(self):
+        conf: dict = ConfigReader.get("selenium")
+
+        if conf['headless']:
+            self.chrome_options.add_argument('--headless')
+            self.chrome_options.add_argument('--no-sandbox')
+            self.chrome_options.add_argument('--disable-dev-shm-usage')
+        self.executable_path = conf['chrome_driver_binary']
