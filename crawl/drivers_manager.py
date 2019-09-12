@@ -15,7 +15,6 @@ class DriversManager(metaclass=Singleton):
     def __init__(self):
         self.drivers = []
         self.chrome_options = webdriver.ChromeOptions()
-        conf: dict = ConfigReader.get("selenium")
 
         self._configure_options()
 
