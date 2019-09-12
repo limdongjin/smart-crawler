@@ -19,7 +19,12 @@ setup(
     packages=find_packages(),
     long_description=long_description(),
     zip_safe=False,
-    install_requires=['Click', 'beautifulsoup4', 'requests', 'selenium', 'lxml'],
+    install_requires=['Click',
+                      'beautifulsoup4',
+                      'requests',
+                      'selenium',
+                      'lxml',
+                      'pyfunctional'],
     entry_points={
         'console_scripts': ['smart-crawler = cli.main:main']
     }
