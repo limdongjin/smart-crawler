@@ -13,6 +13,7 @@ class DriversManager(metaclass=Singleton):
     chrome_options: Options
 
     def __init__(self):
+        print("init")
         self.drivers = []
         self.chrome_options = webdriver.ChromeOptions()
 

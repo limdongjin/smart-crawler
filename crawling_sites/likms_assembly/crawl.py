@@ -35,10 +35,7 @@ class _CrawlBills:
             moorings = parse_tables(page_source)[0]['rows']
         except IndexError as e:
             print(e)
-            # print(moorings)
             print(page_source)
-            print(self.driver.page_source)
-            print(type(page_source))
             return []
 
         for mooring in moorings:
@@ -51,9 +48,6 @@ class _CrawlBills:
     def detail_page(cls, url):
         res = {}
         page_source = requests.get(url).text
-        # driver.get(url)
-        #
-        # page_source = driver.page_source
 
         soup = BeautifulSoup(page_source, features='html.parser')
 
@@ -86,9 +80,6 @@ class _CrawlBills:
     @classmethod
     def _crawl_proponents(cls, detail_url: str):
         url = 'http://likms.assembly.go.kr/bill/coactorListPopup.do?billId=' + cls._get_prc_xxx(detail_url)
-        # driver.get(url)
-        #
-        # page_source = driver.page_source
 
         page_source = requests.get(url).text
 
@@ -96,7 +87,6 @@ class _CrawlBills:
 
         soup = soup.find('div', class_='links textType02 mt20')
         a_tags = soup.find_all('a')
-        # print(a_tags)
         proponents = []
         for a_tag in a_tags:
             proponent = dict()

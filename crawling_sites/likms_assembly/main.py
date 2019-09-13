@@ -2,7 +2,6 @@ import time
 from multiprocessing import Pool
 
 from crawl.drivers_manager import DriversManager
-# from crawling_sites.likms_assembly.crawl import crawl_list_page, crawl_detail_and_merge
 from crawling_sites.likms_assembly.crawl import Crawl
 from util.common import flatten
 
