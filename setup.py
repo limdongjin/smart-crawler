@@ -24,7 +24,9 @@ setup(
                       'requests',
                       'selenium',
                       'lxml',
-                      'pyfunctional'],
+                      'pyfunctional',
+                      'boto3',
+                      'awscli'],
     entry_points={
         'console_scripts': ['smart-crawler = cli.main:main']
     }
