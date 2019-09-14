@@ -3,7 +3,7 @@ from bs4.element import Tag
 from util.common import to_texts, is_not_none, to_strips, merge_list_dict, is_not_equal_empty_list
 from typing import Callable, List, Dict, Any
 from functional import seq
-
+import logging
 
 # [TODO] tag wrapper class 만들기 및 크롤링 되는 대상에 대한 wrapper
 # [TODO] 기능 좀더 추상화
@@ -61,5 +61,12 @@ def _parse_table(table_element: Tag) -> dict:
     parsed_table_rows_data = merge_list_dict(parsed_table_rows_data, links)
 
     res = {'tag_name': 'table', 'attrs': table_element.attrs, 'rows': parsed_table_rows_data}
-    print(res)
+
+    for row in res['rows']:
+        for key in row:
+            if row[key] == '':
+                row[key] = None
+
+    logging.debug(res)
+
     return res
