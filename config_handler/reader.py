@@ -1,4 +1,4 @@
-from config.selenium import config_selenium
+from config.setting import config_selenium
 
 category_map = {'selenium': config_selenium}
 
