@@ -42,7 +42,7 @@ $ ./sh/install_chromedriver_linux64.sh
 $ python setup.py install
 ```
 
-### **step3. configure `config/selenium.py`.** 
+### **step3. configure `config/setting.py`.** 
 ```python
 
 # Configuration Selenium
@@ -54,6 +54,7 @@ config_selenium = {
     
     'chrome_driver_binary': 'your-selenium-chrome-driver-binary-path'
     # ex) /Users/imdongjin/Downloads/chromedriver
+    # ex) /usr/local/bin/chromedriver
 }
 ```
 
