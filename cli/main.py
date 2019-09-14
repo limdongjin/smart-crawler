@@ -1,6 +1,6 @@
 import click
-from crawl.commands.cat import Cat
-from crawl.commands.xpath import Xpath
+from cli.commands.cat import Cat
+from cli.commands import Xpath
 
 
 @click.group()

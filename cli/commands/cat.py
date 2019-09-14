@@ -1,6 +1,6 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-from crawl.http.downloader import DownLoader
+from cli.commands.downloader import DownLoader
 from crawl.drivers_manager import DriversManager
 
 
