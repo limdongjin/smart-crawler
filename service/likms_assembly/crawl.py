@@ -6,7 +6,7 @@ from crawl.parse.table import parse_tables
 from crawl.drivers_manager import DriversManager
 from util.common import merge_dict, to_strips
 from crawl.parse.xpath import parse_by_xpath
-import requests
+from crawl.connect import Connect
 
 logging.basicConfig(level=logging.INFO)
 
