@@ -1,6 +1,6 @@
 import re
 from bs4 import BeautifulSoup
-
+import logging
 from crawl.connect_and_execute_script import ConnectAndExecuteScript
 from crawl.parse.table import parse_tables
 from crawl.drivers_manager import DriversManager
@@ -8,6 +8,7 @@ from util.common import merge_dict, to_strips
 from crawl.parse.xpath import parse_by_xpath
 import requests
 
+logging.basicConfig(level=logging.INFO)
 
 class Crawl:
     @classmethod
@@ -31,11 +32,13 @@ class _CrawlBills:
         page_source = ConnectAndExecuteScript(self.driver).run(url=self.url,
                                                                script=script,
                                                                max_repeat=4)
+
         try:
             moorings = parse_tables(page_source)[0]['rows']
         except IndexError as e:
-            print(e)
-            print(page_source)
+            logging.info(e)
+            logging.info(page_source)
+            logging.info(('page = {0}'.format(self.page)))
             return []
 
         for mooring in moorings:
@@ -74,7 +77,7 @@ class _CrawlBills:
         res['summaries'] = summaries
 
         res['proponents'] = cls._crawl_proponents(url)
-        print(res)
+        logging.debug(res)
         return res
 
     @classmethod
@@ -87,6 +90,7 @@ class _CrawlBills:
 
         soup = soup.find('div', class_='links textType02 mt20')
         a_tags = soup.find_all('a')
+
         proponents = []
         for a_tag in a_tags:
             proponent = dict()
@@ -116,7 +120,7 @@ class _CrawlBills:
                                '정당': '',
                                '한자이름': '',
                                '유형': main_proponent})
-        # print(proponents)
+        logging.debug(proponents)
         return proponents
 
     @classmethod

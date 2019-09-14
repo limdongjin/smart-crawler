@@ -1,5 +1,5 @@
 import time
-
+import logging
 from selenium.common.exceptions import JavascriptException
 
 
@@ -14,18 +14,20 @@ class ConnectAndExecuteScript:
                 if script is not None:
                     self.driver.execute_script(script)
                 if i > 0:
-                    print('success')
+                    logging.info('success')
                 break
             except JavascriptException:
                 if i == 3:
-                    print('fail!')
+                    logging.info('fail!')
                     return None
-                print('re-try connect. n={0}'.format(i))
-                time.sleep(5)
+                logging.info('re-try connect. n={0}'.format(i))
+                logging.info(script)
+                time.sleep(3)
             except IndexError:
                 if i == 3:
                     print('fail!')
                     return None
-                print('re-try connect. n={0}'.format(i))
-                time.sleep(5)
+                logging.info('re-try connect. n={0}'.format(i))
+                logging.info(script)
+                time.sleep(3)
         return self.driver.page_source

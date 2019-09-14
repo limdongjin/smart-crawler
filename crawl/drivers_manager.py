@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException
 from config_handler.reader import ConfigReader
 from util.singleton import Singleton
+import logging
 
 
 class DriversManager(metaclass=Singleton):
@@ -13,7 +14,6 @@ class DriversManager(metaclass=Singleton):
     chrome_options: Options
 
     def __init__(self):
-        print("init")
         self.drivers = []
         self.chrome_options = webdriver.ChromeOptions()
 
@@ -21,7 +21,7 @@ class DriversManager(metaclass=Singleton):
 
     def __del__(self):
         for driver in self.drivers:
-            print('del {0}'.format(driver))
+            logging.debug('del {0}'.format(driver))
             driver.quit()
 
     def create(self, driver_num=1) -> WebDriver:
