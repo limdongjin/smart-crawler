@@ -3,6 +3,9 @@ from functools import reduce
 
 
 def flatten(its: Iterable):
+    if not its:
+        return []
+
     return reduce(lambda it, _next: it + _next, its)
 
 
