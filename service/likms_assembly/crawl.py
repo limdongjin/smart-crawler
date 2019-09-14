@@ -10,7 +10,8 @@ from crawl.connect import Connect
 
 logging.basicConfig(level=logging.INFO)
 
-class Crawl:
+
+class CrawlMooring:
     @classmethod
     def detail_page(cls, mooring):
         return merge_dict(mooring, _CrawlBills.detail_page(mooring['url']))
@@ -31,7 +32,7 @@ class _CrawlBills:
         script = 'javascript:GoPage({0})'.format(self.page) if self.page != 1 else None
         page_source = ConnectAndExecuteScript(self.driver).run(url=self.url,
                                                                script=script,
-                                                               max_repeat=4)
+                                                               max_repeat=6)
 
         try:
             moorings = parse_tables(page_source)[0]['rows']
@@ -44,13 +45,20 @@ class _CrawlBills:
         for mooring in moorings:
             mooring['prc'] = self._get_prc_xxx(mooring)
             mooring['url'] = 'http://likms.assembly.go.kr/bill/billDetail.do?billId=' + mooring['prc']
+            mooring['id'] = int(mooring['의안번호'])
+
+        for mooring in moorings:
+            for key in mooring:
+                if mooring[key] == '':
+                    mooring[key] = None
 
         return moorings
 
     @classmethod
     def detail_page(cls, url):
         res = {}
-        page_source = requests.get(url).text
+        page_source = Connect.request(url, max_repeat=4)
+        # page_source = requests.get(url).text
 
         soup = BeautifulSoup(page_source, features='html.parser')
 
@@ -84,7 +92,7 @@ class _CrawlBills:
     def _crawl_proponents(cls, detail_url: str):
         url = 'http://likms.assembly.go.kr/bill/coactorListPopup.do?billId=' + cls._get_prc_xxx(detail_url)
 
-        page_source = requests.get(url).text
+        page_source = Connect.request(url, max_repeat=4)
 
         soup = BeautifulSoup(page_source, features='html.parser')
 
@@ -95,7 +103,7 @@ class _CrawlBills:
         for a_tag in a_tags:
             proponent = dict()
 
-            proponent['url'] = a_tag.attrs['href']
+            proponent['url'] = a_tag.attrs['href'] if 'href' in a_tag.attrs else None
 
             # ex) a_tag.text = '이장우(새누리당/李莊雨)'
             (proponent['한글이름'],
@@ -117,8 +125,8 @@ class _CrawlBills:
                     proponent['유형'] = '대표발의자'
         else:
             proponents.append({'한글이름': main_proponent,
-                               '정당': '',
-                               '한자이름': '',
+                               '정당': None,
+                               '한자이름': None,
                                '유형': main_proponent})
         logging.debug(proponents)
         return proponents

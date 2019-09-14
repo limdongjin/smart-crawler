@@ -1,11 +1,12 @@
 from unittest import TestCase
 
-from crawling_sites.likms_assembly.main import LikmsAssembly
+from service.likms_assembly.main import LikmsAssemblyService
+from store.dynamodb import put_items
 
 
 class TestLikmsAssembly(TestCase):
     def test_crawling(self):
-        res = LikmsAssembly.moorings(1, 100)
+        res = LikmsAssemblyService.moorings(1, 1000)
 
-        print('res!')
-        print(res)
+        # dynamodb 에 결과를 저장함
+        put_items('bills', res)
