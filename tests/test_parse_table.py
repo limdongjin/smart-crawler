@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from unittest import TestCase
-from crawl.commands.table import Table
+from cli.commands.table import Table
 from crawl.parse.table import parse_tables
 from crawl.parse.xpath import parse_by_xpath
 from crawl.drivers_manager import DriversManager
 from util.common import to_strips
 from bs4 import BeautifulSoup
-
+# import logging
 url: str = "http://likms.assembly.go.kr/bill/MooringBill.do"
 
 

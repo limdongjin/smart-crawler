@@ -1,5 +1,5 @@
 import unittest
-from crawl.commands.cat import DownLoader
+from cli.commands.cat import DownLoader
 
 import requests
 

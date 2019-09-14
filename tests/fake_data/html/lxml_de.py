@@ -74,7 +74,7 @@ Jetbrains supports the lxml project by donating free licenses of their
 <div class="section" id="documentation" style="user-select: auto;">
 <h1 style="user-select: auto;">Documentation</h1>
 <p style="user-select: auto;">The complete lxml documentation is available for download as <a class="reference external" href="lxmldoc-4.4.1.pdf" style="user-select: auto;">PDF
-documentation</a>.  The HTML documentation from this web crawling_sites is part of
+documentation</a>.  The HTML documentation from this web service is part of
 the normal <a class="reference external" href="#download" style="user-select: auto;">source download</a>.</p>
 <ul class="simple" style="user-select: auto;">
 <li style="user-select: auto;">Tutorials:<ul style="user-select: auto;">
@@ -142,7 +142,7 @@ with <a class="reference external" href="pubkey.asc" style="user-select: auto;">
 are listed below.</p>
 <p style="user-select: auto;">Please take a look at the
 <a class="reference external" href="installation.html" style="user-select: auto;">installation instructions</a> !</p>
-<p style="user-select: auto;">This complete web crawling_sites (including the generated API documentation) is
+<p style="user-select: auto;">This complete web service (including the generated API documentation) is
 part of the source distribution, so if you want to download the
 documentation for offline use, take the source archive and copy the
 <tt class="docutils literal" style="user-select: auto;">doc/html</tt> directory out of the source tree, or use the
