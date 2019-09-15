@@ -32,7 +32,8 @@ class _CrawlBills:
         script = 'javascript:GoPage({0})'.format(self.page) if self.page != 1 else None
         page_source = ConnectAndExecuteScript(self.driver).run(url=self.url,
                                                                script=script,
-                                                               max_repeat=6)
+                                                               max_repeat=8,
+                                                               wait_element='table')
 
         try:
             moorings = parse_tables(page_source)[0]['rows']
