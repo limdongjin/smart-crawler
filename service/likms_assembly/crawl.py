@@ -109,11 +109,17 @@ class _CrawlBills:
             proponent = dict()
 
             proponent['url'] = a_tag.attrs['href'] if 'href' in a_tag.attrs else None
-
-            # ex) a_tag.text = '이장우(새누리당/李莊雨)'
-            (proponent['한글이름'],
-             proponent['정당'],
-             proponent['한자이름']) = tuple(re.split('[(:/:)]', a_tag.text)[:-1])
+            try:
+                # ex) a_tag.text = '이장우(새누리당/李莊雨)'
+                tup = tuple(re.split('[(:/:)]', a_tag.text)[:-1])
+                proponent['한글이름'] = tup[0]
+                proponent['정당'] = tup[1]
+                proponent['한자이름'] = tup[-1]
+            except ValueError:
+                print(a_tag.text)
+                (proponent['한글이름'],
+                 proponent['정당'],
+                 proponent['한자이름']) = (None, None, None)
             proponent['유형'] = '공동발의자'
 
             proponents.append(proponent)
