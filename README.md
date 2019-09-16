@@ -70,14 +70,18 @@ writing ...
 
 ### `crawl/drivers_manager.py`
 
-- manage selenium web driver.
-- implemented singleton
+- manage selenium web drivers.
+- implemented singleton.
 - enhance webdriver performance 
 
 ### `service/likms_assembly/main.py`
 
 - crawl mooring(계류) bills(법안) information
 - can test tests/test_likms_assembly.py
+
+### `crawl/parse/table.py`
+
+- (automatically)crawl table tag. and return data dictionary
 
 ## Usage
 
