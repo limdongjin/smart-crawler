@@ -86,6 +86,10 @@ class _CrawlBills:
         res['summaries'] = summaries
 
         res['proponents'] = cls._crawl_proponents(url)
+
+        tmp = parse_by_xpath(page_source, '/html/body/div[1]/div[2]/div[2]/div/div[7]/div/text()')
+        res['비고'] = tmp[0] if tmp else None
+
         logging.debug(res)
         return res
 
