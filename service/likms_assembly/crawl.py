@@ -40,7 +40,7 @@ class _CrawlBills:
         except IndexError as e:
             logging.info(e)
             logging.info(page_source)
-            logging.info(('page = {0}'.format(self.page)))
+            logging.info(('page = {0} fail!'.format(self.page)))
             return []
 
         for mooring in moorings:
@@ -106,22 +106,7 @@ class _CrawlBills:
 
         proponents = []
         for a_tag in a_tags:
-            proponent = dict()
-
-            proponent['url'] = a_tag.attrs['href'] if 'href' in a_tag.attrs else None
-            try:
-                # ex) a_tag.text = '이장우(새누리당/李莊雨)'
-                tup = tuple(re.split('[(:/:)]', a_tag.text)[:-1])
-                proponent['한글이름'] = tup[0]
-                proponent['정당'] = tup[1]
-                proponent['한자이름'] = tup[-1]
-            except ValueError:
-                print(a_tag.text)
-                (proponent['한글이름'],
-                 proponent['정당'],
-                 proponent['한자이름']) = (None, None, None)
-            proponent['유형'] = '공동발의자'
-
+            proponent = cls._crawl_proponent_from_a_tag(a_tag)
             proponents.append(proponent)
 
         bill_title = parse_by_xpath(page_source, '//*[@id="periodDiv"]/div[2]/p/text()')[0]
@@ -141,6 +126,26 @@ class _CrawlBills:
                                '유형': main_proponent})
         logging.debug(proponents)
         return proponents
+
+    @classmethod
+    def _crawl_proponent_from_a_tag(cls, a_tag):
+        proponent = dict()
+
+        proponent['url'] = a_tag.attrs['href'] if 'href' in a_tag.attrs else None
+        try:
+            # ex) a_tag.text = '이장우(새누리당/李莊雨)'
+            tup = tuple(re.split('[(:/:)]', a_tag.text)[:-1])
+            proponent['한글이름'] = tup[0]
+            proponent['정당'] = tup[1]
+            proponent['한자이름'] = tup[-1]
+        except ValueError:
+            print(a_tag.text)
+            (proponent['한글이름'],
+             proponent['정당'],
+             proponent['한자이름']) = (None, None, None)
+        proponent['유형'] = '공동발의자'
+
+        return proponent
 
     @classmethod
     def _get_prc_xxx(cls, mooring):
