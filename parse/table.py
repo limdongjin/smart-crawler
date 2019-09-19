@@ -62,7 +62,7 @@ def _parse_table(table_element: Tag) -> dict:
     parsed_table_rows_data = _parse_table_rows_data(table_element)
     links: List[Dict[str, List[Any]]] = (seq(read_links(table_element))
                                          .map(lambda _: {'links': list(_)}))
-    print(links)
+    # print(links)
     parsed_table_rows_data = merge_list_dict(parsed_table_rows_data, links)
 
     res = {'tag_name': 'table', 'attrs': table_element.attrs, 'rows': parsed_table_rows_data}

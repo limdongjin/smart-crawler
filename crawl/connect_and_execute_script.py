@@ -39,7 +39,5 @@ class ConnectAndExecuteScript:
                 if i == 3:
                     print('fail! {0}'.format(script))
                     return None
-                # logging.info('re-try connect. n={0}'.format(i))
-                # logging.info(script)
                 time.sleep(8)
         return self.driver.page_source

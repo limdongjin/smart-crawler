@@ -1,6 +1,6 @@
 import lxml.etree
 import lxml.html
-from crawl.exception.parse import ParseTargetIsEmpty
+from parse import ParseTargetIsEmpty
 from util.common import to_strings, is_all_elements_type
 
 

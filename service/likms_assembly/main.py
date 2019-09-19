@@ -3,6 +3,7 @@ from service.likms_assembly.crawl import CrawlMooring
 from util.common import flatten
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
+
 class LikmsAssemblyService:
     @classmethod
     def moorings(cls, start_page=1, end_page=9):
@@ -30,6 +31,7 @@ class LikmsAssemblyService:
 
         with ProcessPoolExecutor(max_workers=16) as executor:
             for start in range(start_page, end_page, driver_num):
+                print("current page {0}".format(range(start, start + driver_num)))
                 moorings = executor.map(CrawlMooring.list_page, range(start, start + driver_num))
                 moorings = flatten(moorings)
                 for mooring in moorings:
@@ -37,5 +39,5 @@ class LikmsAssemblyService:
 
             for task in as_completed(tasks):
                 res.append(task.result())
-
+        print('end {0} page'.format(end_page))
         return res

@@ -11,14 +11,10 @@ class Connect:
         for i in range(max_repeat):
             try:
                 res = requests.get(url)
-                if i > 0:
-                    logging.info('success')
                 break
             except rConnectionError as e:
                 if i == 3:
-                    logging.info('fail!')
+                    logging.info('fail! {0}'.format(url))
                     return None
-                logging.info('re-try connect. n={0}'.format(i))
-                logging.info(url)
                 time.sleep(5)
         return res.text

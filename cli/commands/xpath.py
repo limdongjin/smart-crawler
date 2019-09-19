@@ -1,7 +1,7 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
 
 from crawl.drivers_manager import DriversManager
-from crawl.parse.xpath import parse_by_xpath
+from parse import parse_by_xpath
 
 
 class Xpath:
