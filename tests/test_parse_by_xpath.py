@@ -1,5 +1,5 @@
 from unittest import TestCase
-from parse import parse_by_xpath
+from parse.xpath import parse_by_xpath
 from tests.fake_data.html.lxml_de import source as lxml_source
 from tests.fake_data.html.python_org import source as python_org_source
 

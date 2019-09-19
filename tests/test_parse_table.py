@@ -2,8 +2,8 @@
 
 from unittest import TestCase
 from cli.commands.table import Table
-from parse import parse_tables
-from parse import parse_by_xpath
+from parse.table import parse_tables
+from parse.xpath import parse_by_xpath
 from crawl.drivers_manager import DriversManager
 from util.common import to_strips
 from bs4 import BeautifulSoup

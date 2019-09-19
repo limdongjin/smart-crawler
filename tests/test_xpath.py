@@ -1,5 +1,5 @@
 import unittest
-from cli.commands import Xpath
+from cli.commands.xpath import Xpath
 
 
 class TestXpath(unittest.TestCase):

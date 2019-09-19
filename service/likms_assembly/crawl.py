@@ -2,10 +2,10 @@ import re
 from bs4 import BeautifulSoup
 import logging
 from crawl.connect_and_execute_script import ConnectAndExecuteScript
-from parse import parse_tables
+from parse.table import parse_tables
 from crawl.drivers_manager import DriversManager
 from util.common import merge_dict, to_strips
-from parse import parse_by_xpath
+from parse.xpath import parse_by_xpath
 from crawl.connect import Connect
 
 logging.basicConfig(level=logging.INFO)
