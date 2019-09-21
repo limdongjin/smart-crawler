@@ -79,7 +79,7 @@ writing ...
 - crawl mooring(계류) bills(법안) information
 - can test tests/test_likms_assembly.py
 
-### `crawl/parse/table.py`
+### `parse/table.py`
 
 - (automatically)crawl table tag. and return data dictionary
 
