@@ -2,7 +2,7 @@ lxml
 beautifulsoup4
 Click==7.0
 requests==2.22.0
-urllib3==1.25.3
+urllib3==1.25.8
 selenium==3.141.0
 pyfunctional==1.2.0
 boto3==1.9.228
